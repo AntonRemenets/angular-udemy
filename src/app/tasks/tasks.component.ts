@@ -9,5 +9,33 @@ import { TaskComponent } from './task/task.component'
   styleUrl: './tasks.component.scss',
 })
 export class TasksComponent {
-  @Input() name?: string
+  @Input({ required: true }) userId!: string
+  @Input({ required: true }) name!: string
+  tasks = [
+    {
+      id: 1,
+      userId: 'u1',
+      title: 'Task 1',
+      summary: 'Done',
+      dueDate: '2025-12-20'
+    },
+    {
+      id: 2,
+      userId: 'u2',
+      title: 'Task 2',
+      summary: 'Adidas',
+      dueDate: '2025-10-20'
+    },
+    {
+      id: 3,
+      userId: 'u4',
+      title: 'Task 6',
+      summary: 'Adidas buy',
+      dueDate: '2025-10-20'
+    },
+  ]
+
+  get selectedUserTasks () {
+    return this.tasks.filter((task) => task.userId === this.userId)
+  }
 }
