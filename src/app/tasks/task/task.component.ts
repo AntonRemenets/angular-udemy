@@ -1,19 +1,19 @@
-import { Component, Input } from '@angular/core'
+import { Component, inject, Input } from '@angular/core'
 
-interface Task {
-  id: number
-  userId: string
-  title: string
-  summary: string
-  dueDate: string
-}
+import { type Task } from './task.model'
+import { TasksService } from '../tasks.service'
 
 @Component({
   selector: 'app-task',
+  standalone: false,
   templateUrl: './task.component.html',
-  standalone: true,
-  styleUrl: './task.component.scss',
+  styleUrl: './task.component.css',
 })
 export class TaskComponent {
   @Input({ required: true }) task!: Task
+  private tasksService = inject(TasksService)
+
+  onCompleteTask() {
+    this.tasksService.removeTask(this.task.id)
+  }
 }
